@@ -1,9 +1,16 @@
 class AppConstants {
-  
-  // static const double minHeightForLoading = 400.0; // minimum height to show loading placeholder
-  // static const int maxPlantNameLength = 30;        // max length for plant names
-  // static const double freeShippingThreshold = 100.0; // minimum order for free shipping
 
-  static const String apiBaseUrl = "https://www.jsonkeeper.com/b/6Z9C";
-  // static const String plantsEndpoint = "/plants";
+  static const String apiBaseUrl = "https://www.jsonkeeper.com";
+  static const String plantsEndpoint = "/b/6Z9C";
+
+  static const adbanner='assets/images/Saly-3.png';
+
+  static const List<String> filterOptions = [
+    'All',
+    'Succulents',
+    'In Pots',
+    'Dried Flowers',
+    'Hanging Plants'
+  ];
+  static const String selectedFilter = 'All';
 }

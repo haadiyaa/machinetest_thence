@@ -1,4 +1,6 @@
 part of 'plants_bloc.dart';
 
 @immutable
-sealed class PlantsEvent {}
+abstract class PlantsEvent {}
+
+class Fetchplantslist extends PlantsEvent{}

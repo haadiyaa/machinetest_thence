@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:machinetask_thence/core/constants/colors.dart';
 import 'package:machinetask_thence/core/constants/dimensions.dart';
 import 'package:machinetask_thence/core/constants/textstyles.dart';
+import 'package:machinetask_thence/data/models/plantmodel.dart';
+import 'package:machinetask_thence/presentation/blocs/bloc/plants_bloc.dart';
+import 'package:machinetask_thence/presentation/screens/home/widgets/adwidget.dart';
+import 'package:machinetask_thence/presentation/screens/home/widgets/filterwidget.dart';
+import 'package:machinetask_thence/presentation/screens/home/widgets/loaderwidget.dart';
+import 'package:machinetask_thence/presentation/screens/home/widgets/plantlisttile.dart';
 import 'package:machinetask_thence/presentation/screens/product/view/plantdetailspage.dart';
 
+class HomePageWrapper extends StatelessWidget {
+  const HomePageWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PlantsBloc()..add(Fetchplantslist()),
+      child: HomePage(),
+    );
+  }
+}
+
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  late PlantsModel plantsModel;
 
   @override
   Widget build(BuildContext context) {
@@ -29,118 +50,78 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: AppDimensions.paddingMedium),
+          const Padding(
+            padding: EdgeInsets.only(left: AppDimensions.paddingMedium),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Houseplants',
                   style: AppTextStyles.header,
                 ),
-                const SizedBox(
+                SizedBox(
                   height: AppDimensions.heightMedium,
                 ),
-                SizedBox(
-                  height: 35,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppDimensions.paddingMedium,
-                        ),
-                        margin: const EdgeInsets.only(
-                            right: AppDimensions.marginSmall),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            AppDimensions.borderRadiusSmall,
-                          ),
-                          color: AppColors.borderColor,
-                        ),
-                        child: const Center(child: Text('data')),
-                      );
-                    },
-                  ),
-                ),
+                FliterWdiget(),
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              // separatorBuilder: (context,index)=>SizedBox(height: 0,),
-              padding: const EdgeInsets.only(
-                  top: AppDimensions.paddingLarge,
-                  left: AppDimensions.paddingMedium,
-                  right: AppDimensions.paddingMedium),
-              itemCount: 4,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>const PlantDetailsPage()));
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                      bottom: AppDimensions.heightMedium,
-                    ),
-                    // padding: const EdgeInsets.symmetric(
-                    //     vertical: AppDimensions.paddingSmall),
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(AppDimensions.borderRadiusSmall))),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                AppDimensions.borderRadiusSmall),
-                            // image: DecorationImage(image: NetworkImage('url')),
-                            color: AppColors.greyColor,
+          BlocBuilder<PlantsBloc, PlantsState>(
+            builder: (context, state) {
+              if (state is Successfetch) {
+                plantsModel = state.data;
+                return Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(
+                        top: AppDimensions.paddingLarge,
+                        left: AppDimensions.paddingMedium,
+                        right: AppDimensions.paddingMedium),
+                    itemCount: plantsModel.data.length + 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 2) {
+                        return const AdWidget();
+                      }
+                      if (index > 2) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => PlantDetailsPage(
+                                          plantsModel: plantsModel,
+                                          indexx: index-1,
+                                        )));
+                          },
+                          child: PlantListTile(
+                            size: size,
+                            plantsModel: plantsModel,
+                            index: index - 1,
                           ),
-                          height: size.height * 0.15,
-                          width: size.width * 0.3,
+                        );
+                      }
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => PlantDetailsPage(
+                                        plantsModel: plantsModel,
+                                        indexx: index,
+                                      )));
+                        },
+                        child: PlantListTile(
+                          size: size,
+                          plantsModel: plantsModel,
+                          index: index,
                         ),
-                        const SizedBox(
-                          width: AppDimensions.widthMedium,
-                        ),
-                        const Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'data',
-                                    style: AppTextStyles.subTileHeader,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.star,color: AppColors.accentColor,size: 12,),
-                                      Text(
-                                        '4.5',
-                                        style: AppTextStyles.rating,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Text('data',style: AppTextStyles.smallGrey,),
-                              SizedBox(height: 25,),
-                              Text("6.5 \$  ")
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 );
-              },
-            ),
-          ),
+              }
+              return LoaderWidget(size: size);
+            },
+          )
         ],
       ),
     );

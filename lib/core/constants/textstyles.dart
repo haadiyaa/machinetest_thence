@@ -60,6 +60,7 @@ class AppTextStyles {
 
    static const TextStyle smallGrey = TextStyle(
     fontSize: 12,
+    fontWeight: FontWeight.w500,
     color: AppColors.greyColor,
   );
 }

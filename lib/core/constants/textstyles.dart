@@ -10,7 +10,13 @@ class AppTextStyles {
 
   static const TextStyle subHeader = TextStyle(
     fontSize: 18,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textColor,
+  );
+
+  static const TextStyle subTileHeader = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
     color: AppColors.textColor,
   );
 
@@ -44,6 +50,16 @@ class AppTextStyles {
 
   static const TextStyle filterUnselected = TextStyle(
     fontSize: 14,
+    color: AppColors.greyColor,
+  );
+
+  static const TextStyle rating = TextStyle(
+    fontSize: 12,
+    color: AppColors.accentColor,
+  );
+
+   static const TextStyle smallGrey = TextStyle(
+    fontSize: 12,
     color: AppColors.greyColor,
   );
 }

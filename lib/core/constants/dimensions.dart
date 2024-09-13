@@ -12,4 +12,12 @@ class AppDimensions {
   static const double borderRadiusLarge = 24.0;
 
   static const double elevation = 4.0; 
+
+  static const double heightSmall=8.0;
+  static const double heightMedium=16.0;
+  static const double heightLarge=24.0;
+
+  static const double widthSmall=8.0;
+  static const double widthMedium=16.0;
+  static const double widthLarge=24.0;
 }

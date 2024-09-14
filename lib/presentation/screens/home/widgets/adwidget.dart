@@ -9,62 +9,79 @@ class AdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppDimensions.borderRadiusMedium),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color.fromARGB(255, 220, 238, 255),
-            Color.fromARGB(255, 255, 230, 207)
-          ],
-        ),
-      ),
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          margin:
+              const EdgeInsets.only(bottom: AppDimensions.borderRadiusMedium),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color.fromARGB(255, 220, 238, 255),
+                Color.fromARGB(255, 255, 230, 207)
+              ],
+            ),
+          ),
+          height: 100,
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "Free shipping",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Row(
+              const Spacer(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "on orders",
-                    style:
-                        TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                    "Free shipping",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: const Color.fromARGB(255, 252, 198, 132),
-                    ),
-                    child: const Text(" over \$100 ",
+                  Row(
+                    children: [
+                      const Text(
+                        "on orders",
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300,
-                        )),
+                            fontSize: 13, fontWeight: FontWeight.w300),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: const Color.fromARGB(255, 252, 198, 132),
+                        ),
+                        child: const Text(" over \$100 ",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w300,
+                            ),),
+                      )
+                    ],
                   )
                 ],
+              ),
+              const Spacer(
+                flex: 4,
               )
+              // Image.asset(
+              //   AppConstants.adbanner,
+              //   scale: 1.1,
+              // ),
             ],
           ),
-          Image.asset(
+        ),
+        Positioned(
+          top: -15,
+          right: 20,
+          child: Image.asset(
             AppConstants.adbanner,
-            scale: 1.1,
+            scale: 1,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

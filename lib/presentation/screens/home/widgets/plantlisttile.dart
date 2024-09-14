@@ -58,7 +58,27 @@ class PlantListTile extends StatelessWidget {
                   height: size.height * 0.15,
                   width: size.width * 0.3,
                 ),
-              )
+              ),
+              Positioned(
+                bottom: 5,
+                right: 5,
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  // height: 15,
+                  // width: 15,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.borderRadiusSmall,
+                    ),
+                    color: AppColors.cardColor,
+                  ),
+                  child: const Icon(
+                    Icons.favorite_border,
+                    color: AppColors.greyColor,
+                    size: 14,
+                  ),
+                ),
+              ),
             ],
           ),
           const SizedBox(

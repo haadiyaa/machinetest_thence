@@ -50,19 +50,19 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: AppDimensions.paddingMedium),
+           Padding(
+            padding: const EdgeInsets.only(left: AppDimensions.paddingMedium),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Houseplants',
                   style: AppTextStyles.header,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: AppDimensions.heightMedium,
                 ),
-                FliterWdiget(),
+                FilterWidiget(),
               ],
             ),
           ),

@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:machinetask_thence/core/constants/colors.dart';
 import 'package:machinetask_thence/core/constants/dimensions.dart';
 import 'package:machinetask_thence/core/constants/textstyles.dart';
+import 'package:shimmer/shimmer.dart';
 
 class LoaderWidget extends StatelessWidget {
   const LoaderWidget({
@@ -27,60 +27,84 @@ class LoaderWidget extends StatelessWidget {
               bottom: AppDimensions.heightMedium,
             ),
             decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(
-                    AppDimensions.borderRadiusSmall))),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(AppDimensions.borderRadiusSmall))),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        AppDimensions.borderRadiusSmall),
-                    // image: DecorationImage(image: NetworkImage('url')),
-                    color: AppColors.greyColor,
+                Shimmer.fromColors(
+                  baseColor: AppColors.borderColor,
+                  highlightColor: AppColors.cardColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          AppDimensions.borderRadiusSmall),
+                      color: AppColors.greyColor,
+                    ),
+                    height: size.height * 0.13,
+                    width: size.width * 0.3,
                   ),
-                  height: size.height * 0.15,
-                  width: size.width * 0.3,
                 ),
                 const SizedBox(
                   width: AppDimensions.widthMedium,
                 ),
-                const Expanded(
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
+                      Shimmer.fromColors(
+                        baseColor: AppColors.borderColor,
+                        highlightColor: AppColors.cardColor,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.borderRadiusSmall,
+                              ),
+                              color: AppColors.borderColor),
+                          width: double.infinity,
+                          child: const Text(
                             'data',
                             style: AppTextStyles.subTileHeader,
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: AppColors.accentColor,
-                                size: 12,
-                              ),
-                              Text(
-                                '4.5',
-                                style: AppTextStyles.rating,
-                              ),
-                            ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: AppDimensions.heightSmall,
+                      ),
+                      Shimmer.fromColors(
+                        baseColor: AppColors.borderColor,
+                        highlightColor: AppColors.cardColor,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.borderRadiusSmall,
+                            ),
+                            color: AppColors.borderColor,
                           ),
-                        ],
+                          width: 100,
+                          child: const Text(
+                            'data',
+                            style: AppTextStyles.smallGrey,
+                          ),
+                        ),
                       ),
-                      Text(
-                        'data',
-                        style: AppTextStyles.smallGrey,
+                      const SizedBox(
+                        height: 20,
                       ),
-                      SizedBox(
-                        height: 25,
+                      Shimmer.fromColors(
+                        baseColor: AppColors.borderColor,
+                        highlightColor: AppColors.cardColor,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.borderRadiusSmall,
+                            ),
+                            color: AppColors.borderColor,
+                          ),
+                          child: const Text("6.5 \$  "),
+                        ),
                       ),
-                      Text("6.5 \$  ")
                     ],
                   ),
                 ),

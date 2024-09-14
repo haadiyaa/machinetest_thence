@@ -44,8 +44,7 @@ class AppTextStyles {
 
   static const TextStyle filterSelected = TextStyle(
     fontSize: 14,
-    color: AppColors.secondaryColor,
-    fontWeight: FontWeight.bold,
+    color: AppColors.cardColor,
   );
 
   static const TextStyle filterUnselected = TextStyle(

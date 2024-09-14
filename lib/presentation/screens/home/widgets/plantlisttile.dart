@@ -96,7 +96,7 @@ class PlantListTile extends StatelessWidget {
                       plantsModel.data[index].name,
                       style: AppTextStyles.subTileHeader,
                     ),
-                    RatingWidget(plantsModel: plantsModel, indexx: index)
+                    RatingWidget(datum: plantsModel.data[index],)
                   ],
                 ),
                 Text(

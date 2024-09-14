@@ -11,7 +11,7 @@ class BottomButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45,
+      height: 55,
       child: Row(
         children: [
           ElevatedButton(

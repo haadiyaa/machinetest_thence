@@ -6,12 +6,12 @@ import 'package:machinetask_thence/data/models/plantmodel.dart';
 class RatingWidget extends StatelessWidget {
   const RatingWidget({
     super.key,
-    required this.plantsModel,
-    required this.indexx,
+    required this.datum,
+    // required this.indexx,
   });
 
-  final PlantsModel plantsModel;
-  final int indexx;
+  final Datum datum;
+  // final int indexx;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class RatingWidget extends StatelessWidget {
           width: 2,
         ),
         Text(
-          plantsModel.data[indexx].rating.toString(),
+          datum.rating.toString(),
           style: AppTextStyles.rating,
         ),
       ],

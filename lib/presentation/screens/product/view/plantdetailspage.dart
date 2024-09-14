@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:machinetask_thence/core/constants/colors.dart';
 import 'package:machinetask_thence/core/constants/dimensions.dart';
 import 'package:machinetask_thence/core/constants/textstyles.dart';
 import 'package:machinetask_thence/data/models/plantmodel.dart';
@@ -8,10 +7,14 @@ import 'package:machinetask_thence/presentation/screens/product/widgets/bottombu
 import 'package:machinetask_thence/presentation/screens/product/widgets/ratingwidget.dart';
 
 class PlantDetailsPage extends StatelessWidget {
-  const PlantDetailsPage({super.key, required this.plantsModel, required this.indexx});
+  const PlantDetailsPage({
+    super.key,
+    this.datum,
+    this.id,
+  });
 
-  final PlantsModel plantsModel;
-  final int indexx;
+  final Datum? datum;
+  final String? id;
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +36,16 @@ class PlantDetailsPage extends StatelessWidget {
               width: size.width,
               height: size.height * 0.4,
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(
-                    AppDimensions.borderRadiusLarge,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(
+                      AppDimensions.borderRadiusLarge,
+                    ),
+                    bottomRight: Radius.circular(
+                      AppDimensions.borderRadiusLarge,
+                    ),
                   ),
-                  bottomRight: Radius.circular(
-                    AppDimensions.borderRadiusLarge,
-                  ),
-                ),
-                color: (indexx+1)%2!=0?const Color.fromARGB(255, 237, 245, 255):const Color.fromARGB(255, 246, 233, 252),
-                image: DecorationImage(image: NetworkImage(plantsModel.data[indexx].imageUrl))
-              ),
-              
+                  color: const Color.fromARGB(255, 237, 245, 255),
+                  image: DecorationImage(image: NetworkImage(datum!.imageUrl))),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -60,13 +61,13 @@ class PlantDetailsPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            plantsModel.data[indexx].name,
+                            datum!.name,
                             style: AppTextStyles.header,
                           ),
-                          Text("${plantsModel.data[indexx].price} \$"),
+                          Text("${datum!.price} \$"),
                         ],
                       ),
-                      RatingWidget(plantsModel: plantsModel, indexx: indexx),
+                      RatingWidget(datum: datum!,),
                       const SizedBox(
                         height: AppDimensions.heightMedium,
                       ),
@@ -77,7 +78,7 @@ class PlantDetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: AppDimensions.heightSmall,
                       ),
-                      AvailableSizeWidget(plantsModel: plantsModel, indexx: indexx),
+                      AvailableSizeWidget(datum: datum!,),
                       const SizedBox(
                         height: AppDimensions.heightMedium,
                       ),
@@ -89,7 +90,7 @@ class PlantDetailsPage extends StatelessWidget {
                         height: AppDimensions.heightSmall,
                       ),
                       Text(
-                        plantsModel.data[indexx].description,
+                        datum!.description,
                         style: AppTextStyles.smallGrey,
                       ),
                     ],

@@ -7,12 +7,12 @@ import 'package:machinetask_thence/data/models/plantmodel.dart';
 class AvailableSizeWidget extends StatefulWidget {
   const AvailableSizeWidget({
     super.key,
-    required this.plantsModel,
-    required this.indexx,
+    required this.datum,
+    // required this.indexx,
   });
 
-  final PlantsModel plantsModel;
-  final int indexx;
+  final Datum datum;
+  // final int indexx;
 
   @override
   State<AvailableSizeWidget> createState() => _AvailableSizeWidgetState();
@@ -22,18 +22,18 @@ class _AvailableSizeWidgetState extends State<AvailableSizeWidget> {
   @override
   Widget build(BuildContext context) {
     String current =
-        widget.plantsModel.data[widget.indexx].availableSize[0].toString();
+        widget.datum.availableSize[0].toString();
     return SizedBox(
       height: 25,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: widget.plantsModel.data[widget.indexx].availableSize.length,
+        itemCount: widget.datum.availableSize.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
               setState(() {
                 current = widget
-                    .plantsModel.data[widget.indexx].availableSize[index]
+                    .datum.availableSize[index]
                     .toString();
               });
             },
@@ -47,7 +47,7 @@ class _AvailableSizeWidgetState extends State<AvailableSizeWidget> {
                   AppDimensions.borderRadiusSmall,
                 ),
                 color: current ==
-                        widget.plantsModel.data[widget.indexx]
+                        widget.datum
                             .availableSize[index]
                             .toString()
                     ? AppColors.secondaryColor
@@ -55,9 +55,9 @@ class _AvailableSizeWidgetState extends State<AvailableSizeWidget> {
               ),
               child: Center(
                   child: Text(
-                '${widget.plantsModel.data[widget.indexx].availableSize[index].toString()} ${widget.plantsModel.data[widget.indexx].unit}',
+                '${widget.datum.availableSize[index].toString()} ${widget.datum.unit}',
                 style: current ==
-                        widget.plantsModel.data[widget.indexx]
+                        widget.datum
                             .availableSize[index]
                             .toString()
                     ? AppTextStyles.filterSelected

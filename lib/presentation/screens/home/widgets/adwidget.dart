@@ -66,10 +66,6 @@ class AdWidget extends StatelessWidget {
               const Spacer(
                 flex: 4,
               )
-              // Image.asset(
-              //   AppConstants.adbanner,
-              //   scale: 1.1,
-              // ),
             ],
           ),
         ),

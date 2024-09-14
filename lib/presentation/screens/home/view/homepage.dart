@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:machinetask_thence/core/constants/colors.dart';
@@ -9,7 +11,9 @@ import 'package:machinetask_thence/presentation/screens/home/widgets/adwidget.da
 import 'package:machinetask_thence/presentation/screens/home/widgets/filterwidget.dart';
 import 'package:machinetask_thence/presentation/screens/home/widgets/loaderwidget.dart';
 import 'package:machinetask_thence/presentation/screens/home/widgets/plantlisttile.dart';
+import 'package:machinetask_thence/presentation/screens/notfound/view/notfoundpage.dart';
 import 'package:machinetask_thence/presentation/screens/product/view/plantdetailspage.dart';
+import 'package:uni_links2/uni_links.dart';
 
 class HomePageWrapper extends StatelessWidget {
   const HomePageWrapper({super.key});
@@ -18,15 +22,67 @@ class HomePageWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PlantsBloc()..add(Fetchplantslist()),
-      child: HomePage(),
+      child: const HomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   late PlantsModel plantsModel;
+  
+  StreamSubscription? _sub;
+
+  @override
+  void initState() {
+    super.initState();
+    _handleDeepLink();
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  void _handleDeepLink() {
+    _sub = uriLinkStream.listen((Uri? uri) {
+      if (uri != null) {
+        print('Received deep link: $uri');
+        _navigateToProductPage(uri);
+      }
+    }, onError: (err) {
+      print('Failed to receive deep link: $err');
+    });
+  }
+
+  void _navigateToProductPage(Uri uri) {
+    final segments = uri.pathSegments;
+    if (segments.length == 4 && segments[2] == 'product') {
+      final productId = int.tryParse(segments[3]);
+      if (productId != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlantDetailsPage(id: productId.toString()),
+          ),
+        );
+      }
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const NotFoundPage(),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +106,7 @@ class HomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Padding(
+          Padding(
             padding: const EdgeInsets.only(left: AppDimensions.paddingMedium),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,12 +141,13 @@ class HomePage extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => PlantDetailsPage(
-                                          plantsModel: plantsModel,
-                                          indexx: index-1,
-                                        )));
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PlantDetailsPage(
+                                  datum: plantsModel.data[index - 1],
+                                ),
+                              ),
+                            );
                           },
                           child: PlantListTile(
                             size: size,
@@ -102,12 +159,13 @@ class HomePage extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => PlantDetailsPage(
-                                        plantsModel: plantsModel,
-                                        indexx: index,
-                                      )));
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => PlantDetailsPage(
+                                datum: plantsModel.data[index],
+                              ),
+                            ),
+                          );
                         },
                         child: PlantListTile(
                           size: size,
@@ -121,7 +179,7 @@ class HomePage extends StatelessWidget {
               }
               return LoaderWidget(size: size);
             },
-          )
+          ),
         ],
       ),
     );

@@ -36,16 +36,19 @@ class PlantDetailsPage extends StatelessWidget {
               width: size.width,
               height: size.height * 0.4,
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(
-                      AppDimensions.borderRadiusLarge,
-                    ),
-                    bottomRight: Radius.circular(
-                      AppDimensions.borderRadiusLarge,
-                    ),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(
+                    AppDimensions.borderRadiusLarge,
                   ),
-                  color: const Color.fromARGB(255, 237, 245, 255),
-                  image: DecorationImage(image: NetworkImage(datum!.imageUrl))),
+                  bottomRight: Radius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
+                ),
+                color: const Color.fromARGB(255, 237, 245, 255),
+                image: DecorationImage(
+                  image: NetworkImage(datum!.imageUrl),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -67,7 +70,9 @@ class PlantDetailsPage extends StatelessWidget {
                           Text("${datum!.price} \$"),
                         ],
                       ),
-                      RatingWidget(datum: datum!,),
+                      RatingWidget(
+                        datum: datum!,
+                      ),
                       const SizedBox(
                         height: AppDimensions.heightMedium,
                       ),
@@ -78,7 +83,9 @@ class PlantDetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: AppDimensions.heightSmall,
                       ),
-                      AvailableSizeWidget(datum: datum!,),
+                      AvailableSizeWidget(
+                        datum: datum!,
+                      ),
                       const SizedBox(
                         height: AppDimensions.heightMedium,
                       ),
